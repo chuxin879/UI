@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="indexHtml" ang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>后台管理</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <link rel="stylesheet" type="text/css" href="/lemon/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/lemon/css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="/lemon/css/alert.css">
+</head>
+
+<body class="indexBody">
+	<input type="hidden" name="projectId" value="4"/>
+<div class="con-wripper" id="list-index2">
+ <div class="con-top clearfix">
+        <div class="left-top f-l">
+            <div class="logo-top f-l">
+            </div>
+            <div class="modname-top f-l">API RUNNER</div>
+        </div>
+        <div class="right-top f-r">
+            <div class="srch-top f-l">
+                <input type="text"  class="ipt-top" placeholder="搜索分组/项目/接口" />
+            </div>
+            <div class="handle-top f-l">
+                <i class="icon-top icon-collect"></i>
+                <i class="icon-top icon-plus"></i>
+                <i class="icon-top icon-doubt"></i>
+            </div>
+           <div class="ctr-top f-l">
+                <div class="btn_stretch">
+                    <a class="header-top"></a>
+                    <i class="icon-arrow"></i>
+                </div>
+                <ul class="ctrlist-top">
+                    <li class="pctr-top">
+                        <a href="#">个人中心</a>
+                    </li>
+                    <li class="quit-top">
+                        <a href="javascript:logout()">退出</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>    
+    <div class="nav-interlist">
+        <ul class="clearfix">
+            <li class="active"><a href="#">接口</a></li>
+            <li><a href="#">设置</a></li>
+        </ul>
+    </div>
+    <div class="main-interlist com-module clearfix">
+    <div class="left-interlist f-l">
+            <div class="tab-interlist">
+                <div class="tabtype-interlist">
+                    <ul class="clearfix">
+                       <li ><a href="index.html">接口列表</a></li>
+                       <li class="active"><a href="index2.html">测试集合</a></li>
+                    </ul>
+                </div>
+                <div class="srchbox-interlist clearfix">
+                    <input type="text" placeholder="搜索用例" class="input-com f-l">
+                    <a href="javascript:;" class="btn-addfl btn-com f-r" id="addjh">添加集合</a>
+                </div>
+            </div>
+            <div class="list-interlist" id="listInter">
+                <ul class="type_menu" v-for="suit in suits">
+                    <li>
+                        <div class="menu-interlist" >
+                            
+                            <a href="/lemon/html/caseList.html" target="rightIframe">
+                                <i class="icon-file"></i>
+                                <span>{{suit.name}}</span>
+                                <div class="hanmenu-interlist">
+                                    <i class="icon-add"></i>
+                                    <i class="icon-edit"></i>
+                                    <i class="icon-delete"></i>
+                                </div>
+                            </a>
+                        </div>                                                                                                                
+                        <!-- 默认展开第一个套件 -->
+                        	<ul class="tmenu-interlist" v-for="caseVo in suit.cases">
+                        		<!-- 加载此套件下的所有测试用例 -->
+	                            <li class="">
+	                                <a href="/lemon/html/caseEdit.html" target="rightIframe">
+	                                    	{{caseVo.name}}
+	                                    <div class="hantmenu-interlist">
+	                                        <i class="icon-copy"></i>
+	                                        <i class="icon-delete"></i>
+	                                    </div>
+	                                </a>
+	                             </li>
+	                            <!-- <li class="">
+	                                <a href="/lemon/html/caseEdit.html" target="rightIframe">
+	                                    	注册-用户名、密码均为空
+	                                    <div class="hantmenu-interlist">
+	                                        <i class="icon-copy"></i>
+	                                        <i class="icon-delete"></i>
+	                                    </div>
+	                                </a>
+	                             </li> -->
+	                            <!-- <li class="">
+	                                <a href="/lemon/html/caseEdit.html" target="rightIframe">
+	                                    	注册-密码为空
+	                                    <div class="hantmenu-interlist">
+	                                        <i class="icon-copy"></i>
+	                                        <i class="icon-delete"></i>
+	                                    </div>
+	                                </a>
+	                             </li> -->
+	                        </ul>
+	                  </li>
+                    
+                        <!-- <div class="menu-interlist">
+                            <a href="/lemon/html/caseList.html" target="rightIframe">
+                                <i class="icon-file"></i>
+                                <span>登录用例集</span>
+                                <div class="hanmenu-interlist">
+                                    <i class="icon-add"></i>
+                                    <i class="icon-edit"></i>
+                                    <i class="icon-delete"></i>
+                                </div>
+                            </a>
+                        </div> -->
+                        <!-- 默认展开第一个套件 -->
+                        	<!-- <ul class="tmenu-interlist"> -->
+                        		<!-- 加载此套件下的所有测试用例 -->
+	                        <!-- </ul> -->
+	                  <!-- </li> -->
+                    <!-- <li>
+                        <div class="menu-interlist">
+                            <a href="/lemon/html/caseList.html" target="rightIframe">
+                                <i class="icon-file"></i>
+                                <span>取现用例集</span>
+                                <div class="hanmenu-interlist">
+                                    <i class="icon-add"></i>
+                                    <i class="icon-edit"></i>
+                                    <i class="icon-delete"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- 默认展开第一个套件 -->
+                        	<!-- <ul class="tmenu-interlist">
+                        		<!-- 加载此套件下的所有测试用例 -->
+	                        <!-- </ul> --> 
+	                  <!-- </li> --> 
+                    <!-- <li><li>
+                        <div class="menu-interlist">
+                            <a href="/lemon/html/caseList.html" target="rightIframe">
+                                <i class="icon-file"></i>
+                                <span>注册用例集</span>
+                                <div class="hanmenu-interlist">
+                                    <i class="icon-add"></i>
+                                    <i class="icon-edit"></i>
+                                    <i class="icon-delete"></i>
+                                </div>
+                            </a>
+                        </div> -->
+                        <!-- 默认展开第一个套件 -->
+                        	<!-- <ul class="tmenu-interlist">
+                        		<!-- 加载此套件下的所有测试用例 -->
+	                        <!-- </ul> --> 
+	                  <!-- </li> -->
+                </ul>
+            </div>
+        </div>
+        <iframe class="rightIframe f-l" name="rightIframe" src="/lemon/html/caseList.html" onload="loadFrame(this);" scrolling="yes" frameborder="0"></iframe>
+    </div>
+    <!-- 测试集合弹窗 -->
+    <form id="addSuite">
+        <div class="dialog-addinter">
+            <div class="line-addinter form_control clearfix" >
+                <label><span>*</span>集合名称：</label>
+                <input type="text" placeholder="分类名称" class="required" data-valid="isNonEmpty" data-error="内容不能为空" name="name">
+                <span class="valid_message"></span>
+            </div>
+            <div class="line-addinter form_control clearfix describe">
+                <label>描述：</label>
+                <textarea type="text" class="path-addinter" placeholder="描述" name="description"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/lemon/js/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="/lemon/js/jquery.pagination.js"></script>
+<script type="text/javascript" src="/lemon/js/index.js"></script>
+<script type="text/javascript" src="/lemon/js/jquery.cookie.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/lemon/js/accout.js"></script>
+<script src="/lemon/js/vue.js"></script>
+<script src="/lemon/js/axios.min.js"></script>
+<script type="text/javascript" src="/lemon/js/common.js"></script>
+<script>
+    var myvue = new Vue({
+        el:"#list-index2",
+        data:{
+            suits:Object,
+            cases:[]
+        },
+        methods:{},
+        created(){
+            var url = lemon.config.global.admin + "/suite/index2";
+            var projectId = sessionStorage.getItem("projectId")
+            var url_under_project = lemon.config.global.admin + "/cases/findCasesUnderProject?projectId=" + projectId
+            axios.get(url, {
+                headers: {Authorization: $.cookie("sessionId")},
+                params:{"projectId":projectId, "tab":2}
+            }).then(response=>{
+                var result = response.data;
+                if(result.status==1&&result.data!=null){
+                    this.suits = result.data
+                }
+                
+                // else{
+                //     location.href = lemon.config.global.rootUrl + "/html/login.html"
+                // }c
+            }) 
+
+            // axios.get(url,{
+            //     headers: {Authorization: $.cookie("sessionId")},
+            // }).then(response=>{
+            //     var result = response.data;
+            //     if(result.status==1&&result.data!=null){
+            //         this.cases = result.caseList
+            //     }
+
+            // })
+        }
+})
+</script>
+
+<script type="text/javascript" src="/lemon/js/jquery-validate.js"></script>
+
+<script type="text/javascript" src="/lemon/js/base.js"></script>
+<script type="text/javascript" src="/lemon/js/alert.js"></script>
+
+
+</body>
+</html>

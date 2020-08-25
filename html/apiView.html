@@ -1,0 +1,193 @@
+<html ang="zh-CN"><head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>接口预览</title>
+    <meta name="description" content=""> 
+    <meta name="keywords" content="">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <link rel="stylesheet" type="text/css" href="/lemon/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/lemon/css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="/lemon/css/alert.css">
+</head>
+<body>
+        	<div class="right-interlist right-interpre">
+        		<div class="nav-interpre">
+	        		<ul>
+						<li class="active"><a href="#">预览</a></li>
+						<li><a href="apiEdit.html">编辑</a></li>
+						<li><a href="apiRun.html">运行</a></li>
+					</ul>
+				</div>
+        		<div class="del-interpre">
+ 					<div class="basicinfo-interpre">
+						<div class="comtit-interpre notop">基本信息</div>
+						<div class="basiclist-interpre comlist-interpre">
+							<ul>
+								<li>
+									<label>接口名称：</label>
+									<div class="basicintro-interpre">{{info.name}}</div>
+								</li>
+								<li class="alone">
+									<label>接口路径：</label>
+									<div class="basicintro-interpre">
+										<i class="icon-badge">{{info.method}}</i>
+										{{info.url}}
+									</div>
+								</li>
+								<li>
+									<label>创 建 人：</label>
+									<div class="basicintro-interpre">
+										<a href="#" class="link-perctr">
+											<i class="icon-header"></i>
+											{{info.createUsername}}
+										</a>
+									</div>
+								</li>
+								<li>
+									<label>更新时间：</label>
+									<div class="basicintro-interpre">{{info.createTime}}</div>
+								</li>
+							</ul>
+						</div>
+ 					</div>
+ 					<div class="remark-interpre">
+						<div class="comtit-interpre">备注</div>
+						<div class="remarkintro-interpre comlist-interpre">
+							{{info.decription}}
+						</div>
+ 					</div>
+ 					<div class="reqparam-interpre">
+						<div class="comtit-interpre">请求参数</div>
+						<div class="reqcom-interpre reqbody-interpre comlist-interpre">
+							<div class="reqtit-interpre">Queries：</div>
+							<div class="reqlist-interpre">
+								<table  id="query-body">
+									<thead>
+										<tr>
+											<th width="15%">参数名称</th>
+											<th width="12%">参数类型</th>
+											<th width="10%">示例</th>
+											<th width="53%">备注</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+								</table> 
+							</div>
+						</div>
+						<div class="reqcom-interpre reqbody-interpre comlist-interpre">
+							<div class="reqtit-interpre">Headers：</div>
+							<div class="reqlist-interpre">
+								<table id="headers-body">
+									<thead>
+										<tr>
+											<th width="15%">参数名称</th>
+											<th width="12%">参数类型</th>
+											<th width="10%">示例</th>
+											<th width="53%">备注</th>
+										</tr>
+									</thead>
+									<tbody>
+											
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="reqcom-interpre reqbody-interpre comlist-interpre">
+							<div class="reqtit-interpre">Body：</div>
+							<div class="reqlist-interpre">
+								<table  id="body-body">
+									<thead>
+										<tr>
+											<th width="15%">参数名称</th>
+											<th width="12%">参数类型</th>
+											<th width="10%">示例</th>
+											<th width="53%">备注</th>
+										</tr>
+									</thead>
+									<tbody>
+											<!-- <tr>
+												<td>mobilephone</td>
+												<td>string</td>
+												<td></td>
+												<td>手机号</td>
+											</tr>
+											<tr>
+												<td>pwd</td>
+												<td>string</td>
+												<td></td>
+												<td>密码</td>
+											</tr> -->
+									</tbody>
+								</table>
+							</div>
+						</div>
+ 					</div>
+        		</div>
+        	</div>
+     <script type="text/javascript" src="/lemon/js/jquery-1.11.3.js"></script>  
+     <script type="text/javascript" src="/lemon/js/jquery.pagination.js"></script>
+     <script type="text/javascript" src="/lemon/js/alert.js"></script>
+     <script type="text/javascript" src="/lemon/js/base.js"></script>
+	 <script type="text/javascript" src="/lemon/js/common.js"></script>
+	 <script type="text/javascript" src="/lemon/js/vue.js"></script>
+	 <script type="text/javascript" src="/lemon/js/axios.min.js"></script>
+	 <script type="text/javasrcipt" src="/lemon/js/jquery.js"></script>
+	 <script type="text/javascript" src="/lemon/js/jquery.cookie.js" charset="UTF-8"></script>
+	 <script type="text/javascript">
+	 	var myVue = new Vue({
+			el:".del-interpre",
+			data:{
+				info:{}
+			},
+			methods:{},
+			created(){
+				var apiId = sessionStorage.getItem("apiId");
+				var url = lemon.config.global.admin + "/api/toApiView" + "?apiId=" + apiId;
+				axios.get(url,{
+					headers:{Authorization: $.cookie("sessionId")}
+				}).then(reponse=>{
+					var result = reponse.data;
+					if (result.status==1&&result.data!=null){
+						this.info = result.data;
+						var requestParams = this.info.requestParams;
+						
+						for(var i=0;i<requestParams.length;i++){
+							var param = requestParams[i]
+							htmlStr=
+							`<tr>
+								<td>${param.name}</td>
+								<td>${param.paramType}</td>
+								<td>${param.exampleData}</td>
+								<td>${param.description}</td>
+								</tr>`;
+							if(param.type==1){
+								$("#query-body").append(htmlStr)
+							}else if(param.type==2){
+								$("#body-body").append(htmlStr)
+							}else if(param.type==3){
+								
+								$("#headers-body").append(htmlStr)
+							}
+						}
+						
+					}else{
+						locaion.href = lemon.config.global.rootUrl + "html/login.html"
+					}
+
+
+					
+
+
+					
+				});
+
+
+				
+			}
+		 });
+
+	 </script>
+
+
+</body></html>
